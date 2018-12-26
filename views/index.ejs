@@ -1,11 +1,33 @@
+
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="themes/mcclab.min.css" />
+	<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <title>BlueCademy: LOGIN</title>
+</head>
+<body>
+  <div>
+    <h1 style="text-align:center">BlueCademy</h1>
+    <h2 style="text-align:center">LOGIN PAGE</h1>
+  </div>
+  
+  <form action="submit">
+    <label for="Email">Email:</label>
+    <input type="email" data-clear-btn="true" name="Email" id="Email">
+
+    <label for="Password">Password:</label>
+    <input type="password" name="Password" id="Password">
+
+    <input type="submit" value="LOGIN">
+    <h5 style="text-align: center">OR</h5>
+    <input type="button" value="LOGIN with Facebook">
+  </form>
+  
+</body>
 </html>
