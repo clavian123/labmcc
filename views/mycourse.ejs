@@ -1,0 +1,78 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>BLueCademy: My Course</title>
+    <link rel="stylesheet" href="themes/mcclab.min.css" />
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+	<script>
+		$(document).ready(function(){
+            $('#home').click(function(){
+                window.location.href = 'homepage.html';
+            })
+            $('#logout').click(function(){
+                window.location.href = 'index.html';
+                sessionStorage.clear();
+            })
+        })
+       
+        $(function () {
+            // var list = sessionStorage.getItem('u_'+sessionStorage.getItem('email'));
+            var list = sessionStorage.getItem('u_');
+            var arr = JSON.parse(list);
+            console.log(arr);
+            for (let i = 0; i < arr.length; i++) {
+                    var url = "https://mcc-odd1819.herokuapp.com/detail_courses?course_id=" +arr[i];
+                    var opt = {
+                        url: url,
+                        type: 'POST',
+                        data: {
+                            course_id: arr[i]
+                        }
+                    };
+                    var request = $.ajax(opt);
+                    request.done(function (response) {
+                        if(response.link != arr[i]){
+                            $('#list').append(`<li><a onclick="move(${response.id})"><iframe style="float:left" width="125" height="125" src="${response.link}"></iframe>
+                            <h1>${response.main_course_name}</h1><h2>${response.course_name}</h2><p>${response.description}</p></a></li>`) 
+                        }
+                        $('#list').trigger('create');
+                        $('#list').listview('refresh');
+                    }) 
+                
+            }
+            
+        })
+        function move(e){
+            window.location.href="coursedetail.html?course_id="+e;
+        }
+	
+	</script>
+</head>
+
+<body>
+	<div data-role="page" data-theme="a">
+		<div data-role="header" data-position="inline">
+            <h1>MY COURSE</h1>
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#" id="home" >Home</a></li>
+                    <li><a href="#" class="ui-btn-active">My Course</a></li>
+                </ul>
+            </div><!-- /navbar -->
+		</div>
+		<div data-role="content" data-theme="a">
+                <ul data-role="listview" data-split-theme="a" data-inset="true" id="list">
+                    
+                </ul>
+
+            <a href="#" id="logout">Logout</a>
+        </div>
+        
+	</div>
+</body>
+</html>

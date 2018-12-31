@@ -1,0 +1,78 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>BLueCademy: Home</title>
+    <link rel="stylesheet" href="themes/mcclab.min.css" />
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <!-- <script src="handler.js"></script> -->
+	<script>
+		$(document).ready(function(){
+            $('#my_course').click(function(){
+                window.location.href = 'mycourse.html'
+            })
+            $('#logout').click(function(){
+                window.location.href = 'index.html'
+                sessionStorage.clear();
+            })
+        })
+        function save(course_id){
+            var email = sessionStorage.getItem('email');
+            var data = sessionStorage.getItem('u_'+email);
+            var arr;
+            if(!data){
+                arr=[];
+            }
+            else{
+                arr = JSON.parse(data); 
+            }
+            arr.push(course_id);
+            data = JSON.stringify(arr);
+            sessionStorage.setItem('u_'+email,data);
+        }
+        function get_data(){
+            var url="https://mcc-odd1819.herokuapp.com/courses";
+            var request = $.ajax({
+                method : "GET",
+                url : url
+            });
+            request.done(function(response){
+                // var movieId = localStorage.getItem("ID");
+                for (let index = 0; index < response.length; index++) {
+                    $('#list').append(`<li><a onclick="move(${response[index].id})">${response[index].id}. ${response[index].main_course_name} ${response[index].course_name} ${response[index].description}</a></li>`);
+                }
+                $('#list').trigger('create');
+                $('#list').listview('refresh');
+            })
+        }
+        function move(e){
+            window.location.href="coursedetail.html?course_id="+e;
+        }
+
+        $(function(){
+            get_data()
+        })
+	</script>
+</head>
+<body>
+	<div data-role="page" data-theme="a">
+		<div data-role="header" data-position="inline">
+            <h1>HOME PAGE</h1>
+            <div data-role="navbar">
+                <ul>
+                    <li><a href="#" id="home" class="ui-btn-active">Home</a></li>
+                    <li><a href="#" id="my_course">My Course</a></li>
+                </ul>
+            </div><!-- /navbar -->
+		</div>
+		<div data-role="content" data-theme="a">
+            <ul data-role="listview" id="list">
+            </ul>
+        </div>
+        <a href="#" id="logout">Logout</a>
+	</div>
+</body>
+</html>

@@ -12,5 +12,13 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.get('/homepage', function(req,res){
+  res.render('homepage', { title: 'Home'});
+})
+
+router.get('/register', function(req,res){
+  res.render('register', {title: 'Register'});
+})
+
 
 module.exports = router;
