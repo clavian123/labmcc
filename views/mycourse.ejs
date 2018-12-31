@@ -20,36 +20,36 @@
             })
         })
        
-        $(function () {
-            // var list = sessionStorage.getItem('u_'+sessionStorage.getItem('email'));
-            var list = sessionStorage.getItem('u_');
-            var arr = JSON.parse(list);
-            console.log(arr);
-            for (let i = 0; i < arr.length; i++) {
-                    var url = "https://mcc-odd1819.herokuapp.com/detail_courses?course_id=" +arr[i];
-                    var opt = {
-                        url: url,
-                        type: 'POST',
-                        data: {
-                            course_id: arr[i]
-                        }
-                    };
-                    var request = $.ajax(opt);
-                    request.done(function (response) {
-                        if(response.link != arr[i]){
-                            $('#list').append(`<li><a onclick="move(${response.id})"><iframe style="float:left" width="125" height="125" src="${response.link}"></iframe>
-                            <h1>${response.main_course_name}</h1><h2>${response.course_name}</h2><p>${response.description}</p></a></li>`) 
-                        }
-                        $('#list').trigger('create');
-                        $('#list').listview('refresh');
-                    }) 
+        // $(function () {
+        //     // var list = sessionStorage.getItem('u_'+sessionStorage.getItem('email'));
+        //     var list = sessionStorage.getItem('u_');
+        //     var arr = JSON.parse(list);
+        //     console.log(arr);
+        //     for (let i = 0; i < arr.length; i++) {
+        //             var url = "https://mcc-odd1819.herokuapp.com/detail_courses?course_id=" +arr[i];
+        //             var opt = {
+        //                 url: url,
+        //                 type: 'POST',
+        //                 data: {
+        //                     course_id: arr[i]
+        //                 }
+        //             };
+        //             var request = $.ajax(opt);
+        //             request.done(function (response) {
+        //                 if(response.link != arr[i]){
+        //                     $('#list').append(`<li><a onclick="move(${response.id})"><iframe style="float:left" width="125" height="125" src="${response.link}"></iframe>
+        //                     <h1>${response.main_course_name}</h1><h2>${response.course_name}</h2><p>${response.description}</p></a></li>`) 
+        //                 }
+        //                 $('#list').trigger('create');
+        //                 $('#list').listview('refresh');
+        //             }) 
                 
-            }
+        //     }
             
-        })
-        function move(e){
-            window.location.href="coursedetail.html?course_id="+e;
-        }
+        // })
+        // function move(e){
+        //     window.location.href="coursedetail.html?course_id="+e;
+        // }
 	
 	</script>
 </head>
