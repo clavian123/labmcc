@@ -2,7 +2,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>BLueCademy: Home</title>
+	<title>BlueCademy: Home</title>
     <link rel="stylesheet" href="themes/mcclab.min.css" />
     <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
 	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
@@ -34,7 +34,7 @@
             sessionStorage.setItem('u_'+email,data);
         }
         function get_data(){
-            var url="https://mcc-odd1819.herokuapp.com/courses";
+            var url="https://mcclabapi.herokuapp.com/courses";
             var request = $.ajax({
                 method : "GET",
                 url : url

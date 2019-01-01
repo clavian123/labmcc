@@ -36,10 +36,10 @@ passport.deserializeUser(function(profile,done){
 router.get('/authFacebook', passport.authenticate('facebook'));
 router.get('/authFacebook/done', passport.authenticate('facebook', {failureRedirect: '/'}),function(req,res){
   console.log(req.user)
-  let fbid = req.user.id;
+  let fbid = req.user.fbid;
   let user = connection.query("SELECT * FROM user WHERE fbid=?", [fbid], (err, result) => {
     if (err) {
-      res.redirect('/');
+      return res.json({message: err.message});
     }
     if (result) {
       if (result.length == 0) {
@@ -49,6 +49,7 @@ router.get('/authFacebook/done', passport.authenticate('facebook', {failureRedir
       else {
         //udah regis
         res.redirect('/homepage?id=' + result[0].id);
+        console.log(fbid);
       }
     }
   });
@@ -59,12 +60,14 @@ router.post('/register', (req, res) => {
   var password = req.body.password;
   var fbid = req.body.fbid;
 
+  console.log(username, password, fbid);
+
   connection.query("INSERT INTO user(fbid, name, password) VALUES (?, ?, ?)", [fbid, username, password], (err, result) => {
     if (err) {
       return res.json({msg: 'error'})
     } 
     else {
-      return res.json({msg: 'success'});
+      res.render('register', {title: 'Register'});
     }
   });
   console.log(req.body.username);
