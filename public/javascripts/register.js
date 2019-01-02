@@ -63,9 +63,20 @@ function register(){
     }
     else{
         alert('username must have 4 characters minimum');
-    }
+    }   
 }
 $(function(){
+    var search = window.location.search;
+    var params = new URLSearchParams(search);
+    if(params.get('fbid')!=null){
+        $('#facebook_id').val(params.get('fbid'))
+    }
+    if(params.get('name')!=null && params.get('lastname')!=null){
+        $('#username').val(params.get('name')+" "+params.get('lastname'))
+    }
+    if(params.get('email')!=null){
+        $('#email').val(params.get('email'))
+    }
     $('#register-form').submit(register());
     // register();
 })
