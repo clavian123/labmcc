@@ -20,7 +20,7 @@ passport.use(new FacebookStrategy({
   clientID:'471522926585339',
   clientSecret : '826fb0a1d821e970341ed9d121e3ad70',
   callbackURL: 'https://bluecademy.herokuapp.com/authFacebook/done',
-  profileFields: ['id', 'name', 'emails', 'photos']
+  profileFields: ['id', 'name', 'email', 'photos']
 }, function(accessToken, refreshToken, profile, done){
   return done(null, profile);
 }))
@@ -35,10 +35,11 @@ passport.deserializeUser(function(profile,done){
 
 router.get('/authFacebook', passport.authenticate('facebook'));
 router.get('/authFacebook/done', passport.authenticate('facebook', {failureRedirect: '/'}),function(req,res){
-  console.log(req.user)
+  console.log(req.user.emails[0])
+  return res.json(req.user);
   let fbid = req.user.id;
-  var firstname = req.user.name.familyName;
-  var lastname = req.user.name.givenName;
+  var lastname = req.user.name.familyName;
+  var firstname = req.user.name.givenName;
 
   if(req.user.emails!=null){
     var email = req.user.emails[0].value;
@@ -89,10 +90,6 @@ router.get('/', function(req, res, next) {
 
 router.get('/homepage', function(req,res){
   res.render('homepage', { title: 'Home'});
-})
-
-router.get('/register', function(req,res){
-  res.render('register', {title: 'Register'});
 })
 
 

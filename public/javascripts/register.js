@@ -78,5 +78,4 @@ $(function(){
         $('#email').val(params.get('email'))
     }
     $('#register-form').submit(register());
-    // register();
 })
