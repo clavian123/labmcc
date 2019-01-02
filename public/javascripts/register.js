@@ -66,5 +66,6 @@ function register(){
     }
 }
 $(function(){
-    register();
+    $('#register-form').submit(register());
+    // register();
 })

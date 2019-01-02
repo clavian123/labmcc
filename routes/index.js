@@ -63,7 +63,7 @@ router.post('/register', (req, res) => {
     }
     else{
       if (results.length===0){
-        connection.query("INSERT INTO user(fbid, username, email, phone_number, password) VALUES (?, ?, ?)", [fbid, username,email, phone_number, password], (err, result) => {
+        connection.query("INSERT INTO user(fbid, username, email, phone_number, password) VALUES (?, ?, ?, ?, ?)", [fbid, username,email, phone_number, password], (err, result) => {
           if (err) {
             return res.json({msg: 'error'})
           } 
