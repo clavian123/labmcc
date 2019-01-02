@@ -37,40 +37,49 @@ router.get('/authFacebook', passport.authenticate('facebook'));
 router.get('/authFacebook/done', passport.authenticate('facebook', {failureRedirect: '/'}),function(req,res){
   console.log(req.user)
   let fbid = req.user.fbid;
-  let user = connection.query("SELECT * FROM user WHERE fbid=?", [fbid], (err, result) => {
-    if (err) {
-      return res.json({message: err.message});
-    }
-    if (result) {
-      if (result.length == 0) {
-        //belom regis
-        res.redirect('/register?fbid=' + fbid);
-      }
-      else {
-        //udah regis
-        res.redirect('/homepage?id=' + result[0].id);
-        console.log(fbid);
-      }
-    }
-  });
+  var firstname = req.user.name.familyName;
+  var lastname = req.user.name.givenName;
+
+  if(req.user.emails!=null){
+    var email = req.user.emails[0].value;
+  }
+
+  if(req.user!=null){
+    res.redirect('/register?fbid='+fbid+'&name='+firstname+'&lastname='+lastname+'&email='+email)
+  }
 });
 
 router.post('/register', (req, res) => {
   var username = req.body.username;
   var password = req.body.password;
   var fbid = req.body.fbid;
+  var phone_number = req.body.phone_number;
+  var email = req.body.email;
 
   console.log(username, password, fbid);
-
-  connection.query("INSERT INTO user(fbid, name, password) VALUES (?, ?, ?)", [fbid, username, password], (err, result) => {
-    if (err) {
-      return res.json({msg: 'error'})
-    } 
-    else {
-      res.render('register', {title: 'Register'});
+  connection.query('SELECT * FROM user WHERE email=?',[email], function(error, results){
+    if (error){
+      return res.json({message: error.message})
     }
-  });
-  console.log(req.body.username);
+    else{
+      if (results.length===0){
+        connection.query("INSERT INTO user(fbid, username, email, phone_number, password) VALUES (?, ?, ?)", [fbid, username,email, phone_number, password], (err, result) => {
+          if (err) {
+            return res.json({msg: 'error'})
+          } 
+          else {
+            connection.query('SELECT id FROM user WHERE email=? AND password=?',[email,password],function(error,result){
+              return res.json(result[0])
+            })
+          }
+        });
+        console.log(req.body.username);
+      }
+      else{
+        return res.json({message:"Email already registered"});
+      }
+    }
+  })
 })
 
 /* GET home page. */
