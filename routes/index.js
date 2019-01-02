@@ -35,7 +35,7 @@ passport.deserializeUser(function(profile,done){
 
 router.get('/authFacebook', passport.authenticate('facebook'));
 router.get('/authFacebook/done', passport.authenticate('facebook', {failureRedirect: '/'}),function(req,res){
-  console.log(req.user.emails[0])
+  console.log(req.user)
   return res.json(req.user);
   let fbid = req.user.id;
   var lastname = req.user.name.familyName;

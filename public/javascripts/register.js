@@ -65,6 +65,11 @@ function register(){
         alert('username must have 4 characters minimum');
     }   
 }
+
+function sing_up(){
+    $('#register-form').submit(register());
+}
+
 $(function(){
     var search = window.location.search;
     var params = new URLSearchParams(search);
@@ -77,5 +82,5 @@ $(function(){
     if(params.get('email')!=null){
         $('#email').val(params.get('email'))
     }
-    $('#register-form').submit(register());
+    
 })
