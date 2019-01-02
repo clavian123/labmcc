@@ -23,7 +23,7 @@ function register(){
     var password = $('#password').val();
     var con_password = $('#con_password').val();
     var phone_number = $('#phone_number').val();
-
+    console.log('asdasd')
     if(username.length>=4){
         if(password.length>=6){
             if(c1.test(password)==false||c2.test(password)==false){
