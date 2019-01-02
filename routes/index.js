@@ -19,7 +19,7 @@ router.use(passport.initialize());
 passport.use(new FacebookStrategy({
   clientID:'471522926585339',
   clientSecret : '826fb0a1d821e970341ed9d121e3ad70',
-  callbackURL: '/authFacebook/done',
+  callbackURL: 'https://bluecademy.herokuapp.com/authFacebook/done',
   profileFields: ['id', 'name', 'email', 'photos']
 }, function(accessToken, refreshToken, profile, done){
   return done(null, profile);

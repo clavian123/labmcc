@@ -19,20 +19,20 @@
                 sessionStorage.clear();
             })
         })
-        function save(course_id){
-            var email = sessionStorage.getItem('email');
-            var data = sessionStorage.getItem('u_'+email);
-            var arr;
-            if(!data){
-                arr=[];
-            }
-            else{
-                arr = JSON.parse(data); 
-            }
-            arr.push(course_id);
-            data = JSON.stringify(arr);
-            sessionStorage.setItem('u_'+email,data);
-        }
+        // function save(course_id){
+        //     var email = sessionStorage.getItem('email');
+        //     var data = sessionStorage.getItem('u_'+email);
+        //     var arr;
+        //     if(!data){
+        //         arr=[];
+        //     }
+        //     else{
+        //         arr = JSON.parse(data); 
+        //     }
+        //     arr.push(course_id);
+        //     data = JSON.stringify(arr);
+        //     sessionStorage.setItem('u_'+email,data);
+        // }
         function get_data(){
             var url="https://mcclabapi.herokuapp.com/courses";
             var request = $.ajax({
