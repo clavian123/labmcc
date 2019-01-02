@@ -66,21 +66,18 @@ function register(){
     }   
 }
 
-function sign_up(){
-    $('#register-form').submit(register());
-}
-
 $(function(){
+
     var search = window.location.search;
     var params = new URLSearchParams(search);
-    if(params.get('fbid')!=null){
+    if(params.get('fbid')!=null&&params.get('fbid')!="undefined"){
         $('#facebook_id').val(params.get('fbid'))
     }
     if(params.get('name')!=null && params.get('lastname')!=null){
         $('#username').val(params.get('name')+" "+params.get('lastname'))
     }
-    if(params.get('email')!=null){
+    if(params.get('email')!=null&&params.get('email')!="undefined"){
         $('#email').val(params.get('email'))
     }
-    sign_up();
+    $('#register-form').submit(register());
 })
