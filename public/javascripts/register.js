@@ -66,7 +66,7 @@ function register(){
     }   
 }
 
-function sing_up(){
+function sign_up(){
     $('#register-form').submit(register());
 }
 
@@ -82,5 +82,5 @@ $(function(){
     if(params.get('email')!=null){
         $('#email').val(params.get('email'))
     }
-    
+    sign_up();
 })
