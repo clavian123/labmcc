@@ -77,7 +77,7 @@ router.post('/regis', function(req, res) {
         console.log(req.body.username);
       }
       else{
-        return res.json({message:"Email already registered"});
+        return res.json({message:"registered"});
       }
     }
   })

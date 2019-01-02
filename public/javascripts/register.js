@@ -42,8 +42,15 @@ function register(){
                         })
                         register.done(function(results){
                             console.log(results)
-                            sessionStorage.setItem("id",results.id);
-                            window.location.href="/homepage"
+                            
+                            if(results.message!="registered"){
+                                sessionStorage.setItem("id",results.id);
+                                window.location.href="/homepage"
+                            }
+                            else{
+                                alert('Email already registered')
+                            }
+                            
                         })
                     }
                     else{
