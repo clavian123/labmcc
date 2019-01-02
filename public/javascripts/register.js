@@ -66,5 +66,5 @@ function register(){
     }
 }
 $(function(){
-    get_user();
+    register();
 })
