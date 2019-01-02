@@ -12,15 +12,15 @@
 	<script type="text/javascript">
         $(document).ready(function(){
             $('#home').click(function(){
-                window.location.href = 'homepage.html';
+                window.location.href = '/homepage';
             })
         
             $('#my_course').click(function(){
-                window.location.href = 'mycourse.html'
+                window.location.href = '/mycourse'
             })
 
             $('#logout').click(function(){
-                window.location.href = 'index.html'
+                window.location.href = '/'
                 sessionStorage.clear();
             })
         })
@@ -30,7 +30,7 @@
        
         
         function get_data(course_id) {
-            var url = "https://mcc-odd1819.herokuapp.com/detail_courses?course_id=" +course_id;
+            var url = "https://mcclabapi.herokuapp.com/detail_courses";
             var opt = {
                 url: url,
                 type: 'POST',
@@ -52,25 +52,56 @@
             var search = new URLSearchParams(params);
             var course_id = search.get('course_id');
             get_data(course_id);
-            $('#save_button').click(function () {
-                var arr;
-                if (!data) {
-                    arr = [];
+
+            var check = $.ajax({
+                url:'https://mcclabapi.herokuapp.com/user_courses',
+                type:'POST',
+                data:{
+                    userid : sessionStorage.getItem("id")
                 }
-                else {
-                    arr = JSON.parse(data);
-                }
-                arr.push(course_id);
-                data = JSON.stringify(arr);
-                sessionStorage.setItem('u_', data);
-                window.location.reload();
             })
-            for (let i = 0; i < data.length; i++) {
-                if(data[i]==course_id){
-                    $('#save_button').remove();
-                    break;
+            check.done(function(results){
+                for(let i=0;i<results.courses.length;i++){
+                    if(course_id==results.courses[i].id){
+                        $('#save_button').remove()
+                    }
                 }
-            }
+            })
+
+            $('#save_button').click(function () {
+
+                var assign = $.ajax({
+                    url:"https://mcclabapi.herokuapp.com/assign_course",
+                    type:'POST',
+                    data:{
+                        course_id : course_id,
+                        user_id : sessionStorage.getItem("id")
+                    }
+                })
+                assign.done(function(results){
+                    if(results.status=="success"){
+                        window.location.reload()
+                    }
+                })
+
+                // var arr;
+                // if (!data) {
+                //     arr = [];
+                // }
+                // else {
+                //     arr = JSON.parse(data);
+                // }
+                // arr.push(course_id);
+                // data = JSON.stringify(arr);
+                // sessionStorage.setItem('u_', data);
+                // window.location.reload();
+            })
+            // for (let i = 0; i < data.length; i++) {
+            //     if(data[i]==course_id){
+            //         $('#save_button').remove();
+            //         break;
+            //     }
+            // }
         })
 	</script>
 </head>

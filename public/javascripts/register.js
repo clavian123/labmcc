@@ -26,7 +26,7 @@ function register(){
     console.log('asdasd')
     if(username.length>=4){
         if(password.length>=6){
-            if(c1.test(password)==false||c2.test(password)==false){
+            if(c1.test(password)==true && c2.test(password)==true){
                 if(password==con_password){
                     if(phone_number.length>=8&&phone_number.length<=16){
                         var register = $.ajax({
@@ -41,7 +41,8 @@ function register(){
                             }
                         })
                         register.done(function(results){
-                            sessionStorage.setItem("id",results);
+                            // console.log(results)
+                            sessionStorage.setItem("id",results.id);
                             window.location.href="/homepage"
                         })
                     }
@@ -68,8 +69,11 @@ function register(){
 
 $(function(){
 
+
+
     var search = window.location.search;
     var params = new URLSearchParams(search);
+
     if(params.get('fbid')!=null&&params.get('fbid')!="undefined"){
         $('#facebook_id').val(params.get('fbid'))
     }
@@ -79,6 +83,23 @@ $(function(){
     if(params.get('email')!=null&&params.get('email')!="undefined"){
         $('#email').val(params.get('email'))
     }
+
+    var check_fb=$.ajax({
+        url:'/check_fb',
+        type: 'POST',
+        data: {
+            fbid:params.get('fbid')
+        }
+    })
+    check_fb.done(function(results){
+        console.log(results);
+        if(results.message=="registered"){
+            sessionStorage.setItem("id", results.userid.id);
+            window.location.href="/homepage"
+        }
+        
+    })
+
     $('#register-form').submit(function(e){
         e.preventDefault();
         register();

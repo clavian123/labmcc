@@ -19,7 +19,7 @@ router.use(passport.initialize());
 passport.use(new FacebookStrategy({
   clientID:'471522926585339',
   clientSecret : '826fb0a1d821e970341ed9d121e3ad70',
-  callbackURL: 'https://bluecademy.herokuapp.com/authFacebook/done',
+  callbackURL: '/authFacebook/done',
   profileFields: ['id', 'name', 'email', 'photos']
 }, function(accessToken, refreshToken, profile, done){
   return done(null, profile);
@@ -82,6 +82,34 @@ router.post('/register', (req, res) => {
   })
 })
 
+router.post('/check_fb', function(req,res){
+  var fbid=req.body.fbid;
+  connection.query('SELECT id FROM user WHERE fbid=?',[fbid], function(err,result){
+    if (err){
+      return res.json({message:err.message});
+    }
+    else if(result.length>0){
+      return res.json({message:'registered', userid: result[0]})
+    }
+    else{
+      return res.json({message:"unregistered"})
+    }
+  })
+})
+
+router.post('/login',function(req,res){
+  var email = req.body.email;
+  var password = req.body.password;
+  connection.query('SELECT id FROM user WHERE email=? AND password=?',[email, password], function(err,result){
+    if (err){
+      return res.json({message:err.message})
+    }
+    else if(result.length>0){
+      return res.json({message: 'OKE', userid:result[0].id})
+    }
+  })
+})
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -93,6 +121,14 @@ router.get('/homepage', function(req,res){
 
 router.get('/register', function(req,res){
   res.render('register', {title: 'Register'})
+})
+
+router.get('/coursedetail',function(req,res){
+  res.render('coursedetail')
+})
+
+router.get('/mycourse', function(req,res){
+  res.render('mycourse')
 })
 
 module.exports = router;

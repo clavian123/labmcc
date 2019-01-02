@@ -12,10 +12,10 @@
 	<script>
 		$(document).ready(function(){
             $('#home').click(function(){
-                window.location.href = 'homepage.html';
+                window.location.href = '/homepage';
             })
             $('#logout').click(function(){
-                window.location.href = 'index.html';
+                window.location.href = '/';
                 sessionStorage.clear();
             })
         })
@@ -50,6 +50,26 @@
         // function move(e){
         //     window.location.href="coursedetail.html?course_id="+e;
         // }
+
+        $(function(){
+            var mycourse = $.ajax({
+                url:'https://mcclabapi.herokuapp.com/user_courses',
+                type:'POST',
+                data:{
+                    userid:sessionStorage.getItem("id")
+                }
+            })
+            mycourse.done(function(results){
+                for(let i=0;i<results.courses.length;i++){
+                    
+                        $('#list').append(`<li><a onclick="move(${results.courses[i].id})"><iframe style="float:left" width="125" height="125" src="${results.courses[i].link}"></iframe>`+
+                            `<h1>${results.courses[i].main_course_name}</h1><h2>${results.courses[i].course_name}</h2><p>${results.courses[i].description}</p></a></li>`) 
+                        
+                        $('#list').trigger('create');
+                        $('#list').listview('refresh');
+                }
+            })
+        })
 	
 	</script>
 </head>
