@@ -49,7 +49,7 @@ router.get('/authFacebook/done', passport.authenticate('facebook', {failureRedir
   }
 });
 
-router.post('/register', (req, res) => {
+router.post('/regis', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
   var fbid = req.body.fbid;
@@ -62,6 +62,7 @@ router.post('/register', (req, res) => {
       return res.json({message: error.message})
     }
     else{
+      console.log(results)
       if (results.length===0){
         connection.query("INSERT INTO user(fbid, username, email, phone_number, password) VALUES (?, ?, ?, ?, ?)", [fbid, username, email, phone_number, password], (err, result) => {
           if (err) {
