@@ -98,9 +98,10 @@ $(function(){
     if(params.get('email')!=null&&params.get('email')!="undefined"){
         $('#email').val(params.get('email'))
     }
-
-    
-    
+    // $('#register-form').submit(function(e){
+    //     e.preventDefault()
+    //     register()
+    // })
 
     $('#sign-up').click(function(e){
         e.preventDefault();
