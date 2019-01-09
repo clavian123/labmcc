@@ -23,10 +23,17 @@ function register(){
     var password = $('#password').val();
     var con_password = $('#con_password').val();
     var phone_number = $('#phone_number').val();
-    console.log(fbid,username,email,password,phone_number)
+    var check = password.split('');
+    var count = 0;
+    console.log(fbid,username,email,password,phone_number, check)
     if(username.length>=4){
         if(password.length>=6){
-            if(c1.test(password)==true && c2.test(password)==true){
+            for(var i = 0; i<password.length; i++){
+                if(!isNaN(check[i])==true){
+                    count = count + 1;
+                }
+            }
+            if(password.length === count){
                 if(password==con_password){
                     if(phone_number.length>=8&&phone_number.length<=16){
                         var register = $.ajax({
