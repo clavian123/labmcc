@@ -14,6 +14,8 @@
 
 function register(){
 
+    var c1 = new RegExp(/[0-9]/);
+    var c2 = new RegExp(/[a-z A-Z]/);
 
     var fbid = $('#facebook_id').val();
     var username = $('#username').val();
@@ -21,19 +23,10 @@ function register(){
     var password = $('#password').val();
     var con_password = $('#con_password').val();
     var phone_number = $('#phone_number').val();
-    var check = password.split('');
-    var length = 0;
     console.log(fbid,username,email,password,phone_number)
     if(username.length>=4){
         if(password.length>=6){
-            for(var i = 0; i<password.length;i++){
-                if(!isNaN(check[i])){
-                    length = length+1;
-                }
-                console.log(check[i])
-            }
-            console.log(length);
-            if(length == password.length){
+            if(c1.test(password)==true && c2.test(password)==true){
                 if(password==con_password){
                     if(phone_number.length>=8&&phone_number.length<=16){
                         var register = $.ajax({
