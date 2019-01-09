@@ -26,6 +26,9 @@ $(function(){
                 
                 window.location.href="/homepage";
             }
+            else{
+                alert('wrong password / email');
+            }
         })
     })
     facebook_login();
