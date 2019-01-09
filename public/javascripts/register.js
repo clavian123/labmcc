@@ -30,7 +30,9 @@ function register(){
                 if(!isNaN(check[i])){
                     length = length+1;
                 }
+                console.log(check[i])
             }
+            console.log(length);
             if(length == password.length){
                 if(password==con_password){
                     if(phone_number.length>=8&&phone_number.length<=16){
