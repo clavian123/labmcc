@@ -1,22 +1,4 @@
-// function get_user(){
-//     var fbid = $('#facebook_id').val;
-//     var get_user = $.ajax({
-//         url: '/get_user',
-//         type:'POST',
-//         data:{
-//             fbid:fbid
-//         }
-//     })
-//     get_user.done(function(results){
-//         console.log(results)
-//     })
-// }
-
 function register(){
-
-    var c1 = new RegExp(/[0-9]/);
-    var c2 = new RegExp(/[a-z A-Z]/);
-
     var fbid = $('#facebook_id').val();
     var username = $('#username').val();
     var email = $('#email').val();
@@ -84,9 +66,6 @@ function register(){
 }
 
 $(function(){
-
-
-
     var search = window.location.search;
     var params = new URLSearchParams(search);
 

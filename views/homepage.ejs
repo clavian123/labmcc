@@ -8,7 +8,6 @@
 	<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
 	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-    <!-- <script src="handler.js"></script> -->
 	<script>
 		$(document).ready(function(){
             $('#my_course').click(function(){
@@ -19,20 +18,7 @@
                 sessionStorage.clear();
             })
         })
-        // function save(course_id){
-        //     var email = sessionStorage.getItem('email');
-        //     var data = sessionStorage.getItem('u_'+email);
-        //     var arr;
-        //     if(!data){
-        //         arr=[];
-        //     }
-        //     else{
-        //         arr = JSON.parse(data); 
-        //     }
-        //     arr.push(course_id);
-        //     data = JSON.stringify(arr);
-        //     sessionStorage.setItem('u_'+email,data);
-        // }
+        
         function get_data(){
             var url="https://mcclabapi.herokuapp.com/courses";
             var request = $.ajax({
@@ -40,7 +26,6 @@
                 url : url
             });
             request.done(function(response){
-                // var movieId = localStorage.getItem("ID");
                 for (let index = 0; index < response.length; index++) {
                     $('#list').append(`<li><a onclick="move(${response[index].id})">${response[index].id}. ${response[index].main_course_name} ${response[index].course_name} ${response[index].description}</a></li>`);
                 }
