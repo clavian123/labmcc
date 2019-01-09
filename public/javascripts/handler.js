@@ -6,6 +6,9 @@ function facebook_login(){
     })
 }
 $(function(){
+    $('#register').click(function(){
+        window.location.href = "/register"
+    })
     $('#login-form').submit(function(e){
         e.preventDefault();
         var email = $('#email').val();

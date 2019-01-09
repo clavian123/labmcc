@@ -29,13 +29,13 @@ function register(){
     if(username.length>=4){
         if(password.length>=6){
             for(var i = 0; i<password.length; i++){
-                if(isNaN(check[i])==true){
+                if(!isNaN(check[i])==true){
                     console.log(!isNaN(check[i]))
                     count = count + 1;
                 }
             }
             console.log(count)
-            if(password.length == count || count == 0){
+            if(password.length != count && count != 0){
                 if(password==con_password){
                     if(phone_number.length>=8&&phone_number.length<=16){
                         var register = $.ajax({
